@@ -18,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8  # Specify the Python version you need
+          python-version: 3.12  # Specify the Python version you need
 
       - name: Install dependencies
         run: |
@@ -26,4 +26,4 @@ jobs:
           pip install -r requirements.txt  # Assuming you have a requirements file for your dependencies
 
       - name: Run tests
-        run: python -m unittest discover -s tests -p "*_test.py"  # Adjust the path and pattern based on your test file names and structure
+        run: python -m unittest discover -s tests -p "test_*.py"  # Adjust the path and pattern based on your test file names and structure
