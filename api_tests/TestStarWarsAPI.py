@@ -13,17 +13,17 @@ class TestStarWarsAPI(unittest.TestCase):
         movie_director = "Richard Marquand"
         movie_number = 3
 
-        self.assertTrue(self.get_movie_by_number(movie_number, movie_director))
+        self.assertTrue(self.get_movie_by_number_and_director(movie_number, movie_director))
 
     def test_03_validate_movie_director_negative_test(self):
         # Get the 5th movie and assert that ’Producers’ are not ‘Gary Kurtz, George Lucas'
-        movie_director = "Gary Kurtz"
+        movie_producer = "Gary Kurtz"
         movie_number = 5
-        self.assertFalse(self.get_movie_by_number(movie_number, movie_director))
+        self.assertFalse(self.get_movie_by_number_and_producer(movie_number, movie_producer))
 
         # 5th movie director is infact 'George Lucas'
-        movie_director = "George Lucas"
-        self.assertTrue(self.get_movie_by_number(movie_number, movie_director))
+        movie_producer = "George Lucas"
+        self.assertFalse(self.get_movie_by_number_and_producer(movie_number, movie_producer))
 
     def get_movie_list(self):
         endpoint_url = f"{self.base_url}/films"
@@ -39,7 +39,7 @@ class TestStarWarsAPI(unittest.TestCase):
         self.assertEqual(6, get_list["count"], "Total Movies expected is 6")
         return True
 
-    def get_movie_by_number(self, movie_number, movie_director: str):
+    def get_movie_by_number_and_director(self, movie_number, movie_director: str):
         endpoint_url = f"{self.base_url}/films/{movie_number}"
         response = requests.get(endpoint_url)
         self.assertEqual(response.status_code, 200)
@@ -47,7 +47,18 @@ class TestStarWarsAPI(unittest.TestCase):
         get_movie_director = data["director"]
         if get_movie_director != movie_director:
             return False
-        # self.assertEqual(movie_director, get_movie_director, "Movie director does not match")
+
+        return True
+
+    def get_movie_by_number_and_producer(self, movie_number, movie_producer: str):
+        endpoint_url = f"{self.base_url}/films/{movie_number}"
+        response = requests.get(endpoint_url)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        get_movie_producer = data["producer"]
+        if get_movie_producer != movie_producer:
+            return False
+
         return True
 
 
