@@ -15,7 +15,10 @@ Highlevel overview
 
 
 ## Setup 
+Step 1: 
+clone this repo and follow instruction provided: https://github.com/MindfulMichaelJames/star-wars
 
+Step 2: 
 We recommend to install homebrew
 If you are not familiar with it then checkout
 
